@@ -1,0 +1,434 @@
+parsing...
+  1 :   0 : [TO_RUN_A] : [TO_RUN_A]
+  2 :   0 :       |ID| : testProgram
+  3 :   0 :    [IS_TO] :    [IS_TO]
+  4 :   0 :    <COLON> :    <COLON>
+  5 :   1 :      [LET] :      [LET]
+  6 :   1 :       |ID| :          G
+  7 :   1 :       [BE] :       [BE]
+  8 :   1 :        [A] :        [A]
+  9 :   1 :       |ID| :     guitar
+ 10 :   1 :   <PERIOD> :   <PERIOD>
+ 11 :   2 :      [LET] :      [LET]
+ 12 :   2 :       |ID| :          Z
+ 13 :   2 :       [BE] :       [BE]
+ 14 :   2 :   |DIGSEQ| :         10
+ 15 :   2 :   |MATHOP| :          +
+ 16 :   2 :   |DIGSEQ| :         20
+ 17 :   2 :   <PERIOD> :   <PERIOD>
+ 18 :   3 :      [LET] :      [LET]
+ 19 :   3 :       |ID| :          I
+ 20 :   3 :       [BE] :       [BE]
+ 21 :   3 :      [THE] :      [THE]
+ 22 :   3 :       |ID| :     length
+ 23 :   3 :       [OF] :       [OF]
+ 24 :   3 :       |ID| :          G
+ 25 :   3 :   <PERIOD> :   <PERIOD>
+ 26 :   4 :      [LET] :      [LET]
+ 27 :   4 :       |ID| :          Z
+ 28 :   4 :       [BE] :       [BE]
+ 29 :   4 :       |ID| :          Z
+ 30 :   4 :   |MATHOP| :          +
+ 31 :   4 :       |ID| :          I
+ 32 :   4 :   <PERIOD> :   <PERIOD>
+ 33 :   6 : [TO_GET_THE] : [TO_GET_THE]
+ 34 :   6 :       |ID| :     length
+ 35 :   6 :     [OF_A] :     [OF_A]
+ 36 :   6 :       |ID| :     guitar
+ 37 :   6 :    [IS_TO] :    [IS_TO]
+ 38 :   6 :    <COLON> :    <COLON>
+ 39 :   7 :      [LET] :      [LET]
+ 40 :   7 :       |ID| :          I
+ 41 :   7 :       [BE] :       [BE]
+ 42 :   7 :   |DIGSEQ| :          1
+ 43 :   7 :   <PERIOD> :   <PERIOD>
+ 44 :   8 :      [LET] :      [LET]
+ 45 :   8 :       |ID| :          J
+ 46 :   8 :       [BE] :       [BE]
+ 47 :   8 :       |ID| :          I
+ 48 :   8 :   |MATHOP| :          *
+ 49 :   8 :   |DIGSEQ| :         10
+ 50 :   8 :   <PERIOD> :   <PERIOD>
+ 51 :   9 :      [LET] :      [LET]
+ 52 :   9 :       |ID| :          K
+ 53 :   9 :       [BE] :       [BE]
+ 54 :   9 :       |ID| :          I
+ 55 :   9 :   |MATHOP| :          *
+ 56 :   9 :   <LPAREN> :   <LPAREN>
+ 57 :   9 :       |ID| :          J
+ 58 :   9 :   |MATHOP| :          -
+ 59 :   9 :   |DIGSEQ| :         20
+ 60 :   9 :   <RPAREN> :   <RPAREN>
+ 61 :   9 :   <PERIOD> :   <PERIOD>
+ 62 :  10 :      [LET] :      [LET]
+ 63 :  10 :       |ID| :          L
+ 64 :  10 :       [BE] :       [BE]
+ 65 :  10 :       |ID| :          K
+ 66 :  10 :   |MATHOP| :          +
+ 67 :  10 :       |ID| :          J
+ 68 :  10 :   |MATHOP| :          +
+ 69 :  10 :   |DIGSEQ| :        100
+ 70 :  10 :   <PERIOD> :   <PERIOD>
+ 71 :  11 :  [LET_THE] :  [LET_THE]
+ 72 :  11 :       |ID| :     length
+ 73 :  11 :       [BE] :       [BE]
+ 74 :  11 :       |ID| :          L
+ 75 :  11 :   <PERIOD> :   <PERIOD>
+output from parse:
+program
+| run function
+| | statementlist.
+| | | letstatement (to G)
+| | | | constructExpression (of class guitar)
+| | | letstatement (to Z)
+| | | | binaryExpression (+)
+| | | | | literal: 10
+| | | | | literal: 20
+| | | letstatement (to I)
+| | | | call (length)
+| | | | | varRef (G)
+| | | letstatement (to Z)
+| | | | binaryExpression (+)
+| | | | | varRef (Z)
+| | | | | varRef (I)
+| unknown function type
+| | statementlist.
+| | | letstatement (to I)
+| | | | literal: 1
+| | | letstatement (to J)
+| | | | binaryExpression (*)
+| | | | | varRef (I)
+| | | | | literal: 10
+| | | letstatement (to K)
+| | | | binaryExpression (*)
+| | | | | varRef (I)
+| | | | | binaryExpression (-)
+| | | | | | varRef (J)
+| | | | | | literal: 20
+| | | letstatement (to L)
+| | | | binaryExpression (+)
+| | | | | binaryExpression (+)
+| | | | | | varRef (K)
+| | | | | | varRef (J)
+| | | | | literal: 100
+| | | returnstatement 
+| | | | varRef (L)
+checking semantics...
+generating code...
+generated program was:
+---- ##run ----
+0         start (##run)
+1   $0  = store 10
+2   $1  = store 20
+3   $2  = add $0  $1 
+4         push $0 
+5         push $1 
+6         push $2 
+7         call
+8   $3  = pop
+9   $2  = pop
+10  $1  = pop
+11  $0  = pop
+12  $2  = add $2  $3 
+---- length ----
+0         start (length)
+1   $0  = store 1
+2   $1  = store 10
+3   $2  = mult $0  $1 
+4   $3  = store 20
+5   $4  = sub $2  $3 
+6   $5  = mult $0  $4 
+7   $6  = add $5  $2 
+8   $7  = store 100
+9   $8  = add $6  $7 
+10  $9  = pop
+11        push $8 
+
+13  $10 = pop
+14        push $0 
+
+running program...
+                                    registers: 
+                                    stack: 
+            1   $0  = store 10
+                                    registers: 
+                                    $0 = 10 ( , s)
+                                    stack: 
+            2   $1  = store 20
+                                    registers: 
+                                    $0 = 10 ( , s)
+                                    $1 = 20 ( , s)
+                                    stack: 
+            3   $2  = add $0  $1 
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 20 (g, s)
+                                    $2 = 30 ( , s)
+                                    stack: 
+            4         push $0 
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 20 (g, s)
+                                    $2 = 30 ( , s)
+                                    stack: 
+                                    0=10
+            5         push $1 
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 20 (g, s)
+                                    $2 = 30 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+            6         push $2 
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 20 (g, s)
+                                    $2 = 30 (g, s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+            7         call
+                                    registers: 
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            0         start (length)
+                                    registers: 
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            1   $0  = store 1
+                                    registers: 
+                                    $0 = 1 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            2   $1  = store 10
+                                    registers: 
+                                    $0 = 1 ( , s)
+                                    $1 = 10 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            3   $2  = mult $0  $1 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            4   $3  = store 20
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 ( , s)
+                                    $3 = 20 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            5   $4  = sub $2  $3 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            6   $5  = mult $0  $4 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            7   $6  = add $5  $2 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            8   $7  = store 100
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 ( , s)
+                                    $7 = 100 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            9   $8  = add $6  $7 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=ptr
+            10  $9  = pop
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 ( , s)
+                                    $9 = ptr ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+            11        push $8 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 (g, s)
+                                    $9 = ptr ( , s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=100
+            
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 20 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 (g, s)
+                                    $9 = ptr (g, s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+                                    3=100
+            8   $3  = pop
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 (g, s)
+                                    $9 = ptr (g, s)
+                                    stack: 
+                                    0=10
+                                    1=20
+                                    2=30
+            9   $2  = pop
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 10 (g, s)
+                                    $2 = 30 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 (g, s)
+                                    $9 = ptr (g, s)
+                                    stack: 
+                                    0=10
+                                    1=20
+            10  $1  = pop
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 20 (g, s)
+                                    $2 = 30 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 (g, s)
+                                    $9 = ptr (g, s)
+                                    stack: 
+                                    0=10
+            11  $0  = pop
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 20 (g, s)
+                                    $2 = 30 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 (g, s)
+                                    $9 = ptr (g, s)
+                                    stack: 
+            12  $2  = add $2  $3 
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 20 (g, s)
+                                    $2 = 130 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = -10 (g, s)
+                                    $5 = -10 (g, s)
+                                    $6 = 0 (g, s)
+                                    $7 = 100 (g, s)
+                                    $8 = 100 (g, s)
+                                    $9 = ptr (g, s)
+                                    stack: 

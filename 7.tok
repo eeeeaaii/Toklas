@@ -1,0 +1,13 @@
+the square of a float is a float.
+
+to run:
+	let I be a float.  [ same as let I (a float) be 0. ]
+	let I be 40.1.
+	let J be the square of I.
+
+
+to get the square of a float:
+	let F be the float.
+	let the square be F * F.
+
+

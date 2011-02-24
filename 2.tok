@@ -1,0 +1,10 @@
+to run a testProgram is to:
+	let I be 0. 
+	let N be 1.
+	let M be 0.
+	while I < 10 do this:
+		let N be N * 2.
+		let M be M + 2.
+		let I be I + 1.
+		repeat.
+

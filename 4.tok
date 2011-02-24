@@ -1,0 +1,11 @@
+to run a testProgram is to:
+	let I be 0.
+	while I < 10 do this:
+		play.
+		let I be I + 1.
+		repeat.
+
+to play a guitar is to:
+	let A be 10.
+	let B be 20 + A.
+

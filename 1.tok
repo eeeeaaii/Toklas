@@ -1,0 +1,6 @@
+to run a testProgram is to:
+	let I be 3 + 6.
+	let J be I.
+
+
+

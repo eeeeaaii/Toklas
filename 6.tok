@@ -1,0 +1,5 @@
+to run a testProgram is to:
+	let B be an array of 20 int.
+	let the 5th of B be 1001.
+
+

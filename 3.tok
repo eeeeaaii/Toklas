@@ -1,0 +1,10 @@
+to run a testProgram is to:
+	let I be 99.
+	choose one:
+		if I > 100 do this:
+			let Z be 0.
+			stop.
+		otherwise do this:
+			let Z be 1.
+			stop.
+

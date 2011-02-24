@@ -1,0 +1,1238 @@
+parsing...
+  1 :   0 : [TO_RUN_A] : [TO_RUN_A]
+  2 :   0 :       |ID| : testProgram
+  3 :   0 :    [IS_TO] :    [IS_TO]
+  4 :   0 :    <COLON> :    <COLON>
+  5 :   1 :      [LET] :      [LET]
+  6 :   1 :       |ID| :          I
+  7 :   1 :       [BE] :       [BE]
+  8 :   1 :   |DIGSEQ| :          0
+  9 :   1 :   <PERIOD> :   <PERIOD>
+ 10 :   2 :      [LET] :      [LET]
+ 11 :   2 :       |ID| :          N
+ 12 :   2 :       [BE] :       [BE]
+ 13 :   2 :   |DIGSEQ| :          1
+ 14 :   2 :   <PERIOD> :   <PERIOD>
+ 15 :   3 :      [LET] :      [LET]
+ 16 :   3 :       |ID| :          M
+ 17 :   3 :       [BE] :       [BE]
+ 18 :   3 :   |DIGSEQ| :          0
+ 19 :   3 :   <PERIOD> :   <PERIOD>
+ 20 :   4 :    [WHILE] :    [WHILE]
+ 21 :   4 :       |ID| :          I
+ 22 :   4 :   <COMPOP> :          <
+ 23 :   4 :   |DIGSEQ| :         10
+ 24 :   4 :  [DO_THIS] :  [DO_THIS]
+ 25 :   4 :    <COLON> :    <COLON>
+ 26 :   5 :      [LET] :      [LET]
+ 27 :   5 :       |ID| :          N
+ 28 :   5 :       [BE] :       [BE]
+ 29 :   5 :       |ID| :          N
+ 30 :   5 :   |MATHOP| :          *
+ 31 :   5 :   |DIGSEQ| :          2
+ 32 :   5 :   <PERIOD> :   <PERIOD>
+ 33 :   6 :      [LET] :      [LET]
+ 34 :   6 :       |ID| :          M
+ 35 :   6 :       [BE] :       [BE]
+ 36 :   6 :       |ID| :          M
+ 37 :   6 :   |MATHOP| :          +
+ 38 :   6 :   |DIGSEQ| :          1
+ 39 :   6 :   <PERIOD> :   <PERIOD>
+ 40 :   7 :      [LET] :      [LET]
+ 41 :   7 :       |ID| :          I
+ 42 :   7 :       [BE] :       [BE]
+ 43 :   7 :       |ID| :          I
+ 44 :   7 :   |MATHOP| :          +
+ 45 :   7 :   |DIGSEQ| :          1
+ 46 :   7 :   <PERIOD> :   <PERIOD>
+ 47 :   8 :   [REPEAT] :   [REPEAT]
+ 48 :   8 :   <PERIOD> :   <PERIOD>
+output from parse:
+program
+| run function
+| | statementlist.
+| | | letstatement (to I)
+| | | | literal: 0
+| | | letstatement (to N)
+| | | | literal: 1
+| | | letstatement (to M)
+| | | | literal: 0
+| | | dostatement 
+| | | | statementlist.
+| | | | | letstatement (to N)
+| | | | | | binaryExpression (*)
+| | | | | | | varRef (N)
+| | | | | | | literal: 2
+| | | | | letstatement (to M)
+| | | | | | binaryExpression (+)
+| | | | | | | varRef (M)
+| | | | | | | literal: 1
+| | | | | letstatement (to I)
+| | | | | | binaryExpression (+)
+| | | | | | | varRef (I)
+| | | | | | | literal: 1
+checking semantics...
+generating code...
+generated program was:
+---- ##run ----
+0         start (##run)
+1   $0  = store 0
+2   $1  = store 1
+3   $2  = store 0
+4   $3  = store 10
+5   $4  = lt $0  $3 
+6         bz $4 ->14
+7   $5  = store 2
+8   $1  = mult $1  $5 
+9   $7  = store 1
+10  $2  = add $2  $7 
+11  $9  = store 1
+12  $0  = add $0  $9 
+13       = jump ->4
+14        noop
+running program...
+                                    registers: 
+                                    stack: 
+            1   $0  = store 0
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    stack: 
+            2   $1  = store 1
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    $1 = 1 ( , s)
+                                    stack: 
+            3   $2  = store 0
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    $1 = 1 ( , s)
+                                    $2 = 0 ( , s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    $1 = 1 ( , s)
+                                    $2 = 0 ( , s)
+                                    $3 = 10 ( , s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 1 ( , s)
+                                    $2 = 0 ( , s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 ( , s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 1 ( , s)
+                                    $2 = 0 ( , s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 1 ( , s)
+                                    $2 = 0 ( , s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 ( , s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 0 ( , s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 0 ( , s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 ( , s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 ( , s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 2 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 1 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 4 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 2 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 2 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 8 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 3 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 3 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 16 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 4 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 4 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 32 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 5 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 5 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 64 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 6 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 6 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 128 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 7 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 7 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 256 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 8 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 8 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            7   $5  = store 2
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 512 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            8   $1  = mult $1  $5 
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            9   $7  = store 1
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 9 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            10  $2  = add $2  $7 
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            11  $9  = store 1
+                                    registers: 
+                                    $0 = 9 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            12  $0  = add $0  $9 
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            13       = jump ->4
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            4   $3  = store 10
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 1 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            5   $4  = lt $0  $3 
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 0 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            6         bz $4 ->14
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 0 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 
+            14        noop
+                                    registers: 
+                                    $0 = 10 (g, s)
+                                    $1 = 1024 (g, s)
+                                    $2 = 10 (g, s)
+                                    $3 = 10 (g, s)
+                                    $4 = 0 (g, s)
+                                    $5 = 2 (g, s)
+                                    $7 = 1 (g, s)
+                                    $9 = 1 (g, s)
+                                    stack: 

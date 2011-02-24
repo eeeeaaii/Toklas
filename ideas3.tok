@@ -1,0 +1,53 @@
+[ don't worry about setters right now, fuck it
+]
+a guitar is an instrument. 														[ subclass declare ]
+a guitar has a string called model.												[ property declare ]
+a guitar can strum from Side1 (an int) and to Side2 (an int).				[ procedure declare ]
+the sound of a guitar with FX (a soundmodifier) is a float.			[ function declare ]
+
+to get the sound of a guitar with FX (a soundmodifier):					[ function define ]
+	let S be 100.3.
+	let the sound be L.
+
+to strum a guitar from Side1 (an int) and to Side2 (an int):				[ procedure define ]
+	let S be 100.3.
+
+
+to construct a guitar with InLength (an int), with InType (an int), and with InModel (an int):  [ constructor define ] 
+	let the Length of the guitar be InLength.
+	let the Type of the guitar be InType.
+	let the Model of the guitar be InModel.
+
+
+to run a testProgram is to:
+	let G be a guitar.
+	let X be 3.2 + 4.04.
+	let Z be 5.3 + X.
+	let Q be X + Z + the length of G.
+
+
+a point is an object.
+a point has an xposition (a float).
+a point has a yposition (a float).
+
+a line is an object.
+a line has a firstPoint (a point).
+a line has a secondPoint (a point).
+the length of a line is a float.
+
+to get the length of a line:
+	let x1 be the xposition of the firstPoint of the line.
+	let x2 be the xposition of the secondPoint of the line.
+	let y1 be the yposition of the firstPoint of the line.
+	let y2 be the yposition of the secondPoint of the line.
+	let d be (x1 - x2) ^ 2 + (y1 - y2) ^ 2.
+	let the length be the squareRoot of d.
+
+to get the distance of a line from A to B:
+	let x1 be the xposition of the firstPoint of the line.
+	let x2 be the xposition of the secondPoint of the line.
+	let y1 be the yposition of the firstPoint of the line.
+	let y2 be the yposition of the secondPoint of the line.
+	let d be (x1 - x2) ^ 2 + (y1 - y2) ^ 2.
+	let the distance be the squareRoot of d.
+	

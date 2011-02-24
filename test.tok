@@ -1,0 +1,34 @@
+
+a guitar is an object.
+a guitar has an int called Model.
+a guitar has an int called Make.
+a guitar has an int called Length.
+a guitar can strum from Side1 (an int), to Side2 (an int).
+the sound of a guitar with FX (an int) is an int.
+
+to get the sound of a guitar with FX:
+	let S be 100.
+	let the sound be S.
+
+to strum a guitar from Side1, to Side2:
+	let Model be 99.
+	let Make be 98.
+
+
+to construct a guitar with InLength, with InType, and with InModel:
+	strum the guitar.
+	let the Length of the guitar be InLength.
+	let the Type of the guitar be InType.
+	let the Model of the guitar be InModel.
+
+to run:
+	let G be a guitar with 10, with 2, and with 9.
+	strum G.
+	let B be the sound of G with 10.
+
+
+	[let G be a guitar with InLength of 10, InType of 2, and InModel of 9]
+	[
+	let G be a guitar.
+	let L be the length of G with (the foo of bar).
+	]

@@ -1,0 +1,276 @@
+X branching
+X procedures
+X functions that return values
+X conditionals
+X data types
+
+- fix destructors -ast
+
+- parameters to functions
+- arrays
+- classes
+- procedures
+- floating point numbers
+- strings
+- namespaces
+- lists
+- interactive interpreter (toklas command line)
+- lambda, map
+- containers (set, dictionary, list, etc)
+- exceptions
+
+/*
+antecedent finding for something like this:
+to run:
+	let G be a guitar.
+	let P be a pencil.
+	writeWith the pencil. [ finds in the scope that there is only one pencil. ]
+*/
+
+- program database stuff:
+			source file is loaded and modified.  bytecodes of compiled program are inserted after the source.
+			also, a program database is created of pointers to definitions of any identifier, including scopes.
+			the idea being that a macro in VI could find the definition of something by jumping to the pdb and then
+			finding the reference and jumping to that location.  similarly an IDE could do this.
+
+				to run is to:
+					let G be a guitar.
+					let Z be 10 + 20.
+					let I be the length of G.
+					let Z be Z + I.
+				...etc
+				====
+				pdb{
+				run:1;G:{2-5};Z:{3-5};I:{4-5};guitar:25;guitar#length:36
+				}	
+				bc{
+				jr#r83qQFr9$%!r3Fr
+				AR4$#g%^GHvFEK#%#F
+				...etc
+				}
+
+			
+
+
+
+- threading:
+		  while you ... also ... and also ... and repeat all.
+		  while you ... also ... and also ... and stop all.
+
+- abbreviation templates (maybe?):
+		  compiler rewrites source code -- shortcut symbols.
+			you type something like this
+				\t 'run':
+					\l 'G ; a guitar'.
+					\l 'Z ; 10 + 20'.
+					\l 'I ; \t'length ; G ''.
+					\l 'Z ; Z + I'.
+			and the compiler changes the source code into
+				to run is to:
+					let G be a guitar.
+					let Z be 10 + 20.
+					let I be the length of G.
+					let Z be Z + I.
+	
+- nonlocal checks:
+				if ever X < 10:
+					let X be 10.
+					stop.
+
+			(the nonlocal check runs whenever X is modified, and if the test is successful, jump to
+			a pseudoprocedure and execute the code there (or create a branch, whatever))
+
+				if you ever:
+					let X be 10.
+					let Y be 20.
+					and stop.
+				then do this:
+					let Z be 100.
+
+			(the nonlocal check creates a code template and searches the code for another occurrance of that
+			template -- if it exists, put in a jump to a pseudoprocedure after that code, in a new thread?)
+
+
+
+
+
+debugger
+
+
+
+API support
+
+- console/stdin/stdout
+- file system
+- networking support/ssl/socket
+- string functions (incl. formatting)
+- graphics
+- windowing
+- math/sci comp
+- containers
+- database connectivity
+- dates
+- images/file formats
+- threading
+- IPC
+- email
+- json
+- xml
+- html
+- mimetypes
+- ftp
+- cgi/apache mod
+- web browser
+- audio
+- localization
+- gc access
+- reflection
+- os-specific stuff
+
+
+----------------------------------------
+------ NOTES
+----------------------------------------
+
+/*
+
+
+/// NO NO NO this is all wrong.
+// in the parser, allow any expression on the left side of the =.
+// then in semantic parsing, you compute the type of it.
+// depending on its type, it's either an lvalue or it's not.
+// if it's not an lvalue, generate an error.
+// otherwise, generate the code for the right side to get a value and put it in a register.
+// then generate the code for the left side to put the ADDRESS of the lvalue
+// in a register.
+// then generate the code to store the value in  $right into the address in $left
+
+
+valid lvalues:
+the code which I generate for an lvalue should
+eventually yield a register or a register + a store
+instruction
+A = ...
+the 39th of A = ...
+the 3rd of the 9th of A ...
+the 9th of (the top of G) ...
+the top of (the end of (the 49th of F))
+the top of (a building)
+
+
+a = 
+a[4] = 
+a.foo = 
+a.foo.r = 
+a[whatever()] = 
+a.getit().b =  a has a function that returns an object, then we set the thing of that object
+
+
+a.getit().b = 294 + z;
+the way it has to work is that you generate the code for 294 + z
+then you call a function on the left side expression that generates some code
+and produces the "lvalue" somehow
+and it returns a pointer to an astnode
+
+then you call a function on that which stores
+
+a.getit() is 
+
+
+
+*/
+
+
+
+
+/*
+
+int A;
+A = 4 + 5
+
+$1 = ALLOC 
+$2 = MOVE 4
+$3 = MOVE 5
+$4 = ADD $2, $3
+     STORE $3, $1
+
+
+B = 5 + A
+
+$1 = ALLOC ; b
+$2 = MOVE 100 ; a
+$3 = MOVE 5
+$4 = LOAD $2
+$5 = ADD $3, $4
+     STORE $5, $1
+
+let A be an array of 10 int.
+
+A = new int[10];
+A[3] = 8 + 4;
+B = A[3] + 14;
+
+
+$1 = ALLOC 10
+$2 = MOVE 8 
+$3 = MOVE 4
+$4 = ADD $2 $3
+     STORE $4, 3($1)
+$5 = LOAD $4, 3($1)
+$6 = MOVE 14
+$7 = ADD $5 $6
+	*/
+
+
+/*
+// difference between
+if (foo) {
+}
+if (bar) {
+}
+
+and
+
+if (foo) {
+} else if (bar) {
+}
+
+is that in the former, both can be executed if "foo" and "bar" are
+both true.
+
+do this if x < 10:
+	...
+	...
+	stop.
+otherwise do this if blech:
+	...
+	stop.
+
+[get rid of otherwise statement.  Instead:]
+do one of these:
+	if x < 10:
+		asdlk.
+		asdfl.
+		repeat.
+
+
+
+if (foo) {
+} else if (bar) {
+} else if (foobar) {
+} else {
+}
+
+0-> $1 = lte $2 $3
+1->      bz $1 6
+2->  ...
+3->  ...
+4->  ...
+5->  ...//if it says repeat, I add a jump here
+6-> $9 = lt $3 $5
+7->      bz $9 ...
+... same thing.
+
+
+
+*/

@@ -1,0 +1,75 @@
+a Line has:
+	nsegments (an int).
+	segments (an array of arrays of float).
+	colors (an array of int).
+	startptr (an int) initialized to 0.
+
+to construct a Line is to:
+	let v3 be v2 - v1.
+	let len (a float) be the magnitude of v3.
+	let nsegments be (the floor of (len / 40)) + 2.
+	let seglen (a float) be len / nsegments.
+	normalize v3.
+	let piecev (a Vect) be (the scale of v3 with seglen).
+	let segments be a new array of nsegments arrays of 4 floats.
+	let colors be a new array of negments ints.
+	let t (a Vect) be v1.
+	let i be 0.
+	do this while i < nsegments:
+		let t2 (a Vect) be the addTo of piecev with t.
+		let the ith, 0th segment be the u of t.
+		let the ith, 1st segment be the v of t.
+		let the ith, 2nd segment be the u of t2.
+		let the ith, 3rd segment be the v of t2.
+		repeat, letting i be i + 1.
+	let p (a float) be 255.0/2.
+	let s (a float) be 0.0.
+	let n (a float) be 50.
+	let d (a float) be 100.0.
+
+	let ml (an int) be nsegments / 2.
+	let i (an int) be 0.
+	do this while i < ml:
+		let the ith of colors be s as an int.
+		let s be s + p.
+		let p be p * (n / d).
+		repeat, letting i be i + 1.
+	do this if nsegments % 1 = 1:
+		let the ith of colors be s as an int.
+		let i be i + 1.
+		stop.
+	do this while i < nsegments:
+		let the ith of colors be s as an int.
+		let s be s - p.
+		let p be p * (d / n).
+		repeat, letting i be i + 1.
+	stop.
+
+to get the nthSegment of a Line with n is to:
+	let r be the nth of segments.
+	let the nthSegment be r.
+	
+
+to draw a Line with pg (a PGraphics) is to:
+	let j (an int) be startptr.	
+	let i (an int) be 0.
+	do this while i < nsegments:
+		drawLineSegment itself with pg, j and the ith color.
+		let j be (j + 1) % nsegments.
+		repeat, letting i be i + 1.
+	let startptr be (startptr + 1) % nsegments.
+	stop.	
+
+to drawLineSegment a Line with pg (a PGraphics), i (an int) and c (an int) is to:
+	let x1 (a float) be the ith, 0th segment.
+	let y1 (a float) be the ith, 1st segment.
+	let x2 (a float) be the ith, 2nd segment.
+	let y2 (a float) be the ith, 3rd segment.
+
+	let alpha (a float) be (c as a float) / 255.
+	print (alpha as a string).
+	stroke pg with 0 and (255 - c).
+	strokeWeight pg with 1.
+	line pg with x1, y1, x2 and y2.
+	stop.
+

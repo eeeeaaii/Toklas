@@ -1,0 +1,142 @@
+parsing...
+  1 :   0 : [TO_RUN_A] : [TO_RUN_A]
+  2 :   0 :       |ID| : testProgram
+  3 :   0 :    [IS_TO] :    [IS_TO]
+  4 :   0 :    <COLON> :    <COLON>
+  5 :   1 :      [LET] :      [LET]
+  6 :   1 :       |ID| :          I
+  7 :   1 :       [BE] :       [BE]
+  8 :   1 :   |DIGSEQ| :         99
+  9 :   1 :   <PERIOD> :   <PERIOD>
+ 10 :   2 : [CHOOSE_ONE] : [CHOOSE_ONE]
+ 11 :   2 :    <COLON> :    <COLON>
+ 12 :   3 :    [WHILE] :    [WHILE]
+ 13 :   3 :       |ID| :          I
+ 14 :   3 :   <COMPOP> :          >
+ 15 :   3 :   |DIGSEQ| :        100
+ 16 :   3 :  [DO_THIS] :  [DO_THIS]
+ 17 :   3 :    <COLON> :    <COLON>
+ 18 :   4 :      [LET] :      [LET]
+ 19 :   4 :       |ID| :          Z
+ 20 :   4 :       [BE] :       [BE]
+ 21 :   4 :   |DIGSEQ| :          0
+ 22 :   4 :   <PERIOD> :   <PERIOD>
+ 23 :   5 :     [STOP] :     [STOP]
+ 24 :   5 :   <PERIOD> :   <PERIOD>
+ 25 :   6 : [OTHERWISE] : [OTHERWISE]
+ 26 :   6 :  [DO_THIS] :  [DO_THIS]
+ 27 :   6 :    <COLON> :    <COLON>
+ 28 :   7 :      [LET] :      [LET]
+ 29 :   7 :       |ID| :          Z
+ 30 :   7 :       [BE] :       [BE]
+ 31 :   7 :   |DIGSEQ| :          1
+ 32 :   7 :   <PERIOD> :   <PERIOD>
+ 33 :   8 :     [STOP] :     [STOP]
+ 34 :   8 :   <PERIOD> :   <PERIOD>
+output from parse:
+program
+| run function
+| | statementlist.
+| | | letstatement (to I)
+| | | | literal: 99
+| | | choosestatement 
+| | | | statementlist.
+| | | | | dostatement 
+| | | | | | statementlist.
+| | | | | | | letstatement (to Z)
+| | | | | | | | literal: 0
+| | | | | dostatement 
+| | | | | | statementlist.
+| | | | | | | letstatement (to Z)
+| | | | | | | | literal: 1
+checking semantics...
+generating code...
+generated program was:
+---- ##run ----
+0         start (##run)
+1   $0  = store 99
+2         noop
+3   $5  = store 100
+4   $6  = lt $5  $0 
+5        bnz $6 ->8
+6        = jump ->14
+7        = jump ->18
+8   $1  = store 100
+9   $2  = lt $1  $0 
+10        bz $2 ->12
+11  $3  = store 0
+12        noop
+13       = jump ->18
+14        noop
+15  $3  = store 1
+16        noop
+17       = jump ->18
+18        noop
+running program...
+                                    registers: 
+                                    stack: 
+            1   $0  = store 99
+                                    registers: 
+                                    $0 = 99 ( , s)
+                                    stack: 
+            2         noop
+                                    registers: 
+                                    $0 = 99 ( , s)
+                                    stack: 
+            3   $5  = store 100
+                                    registers: 
+                                    $0 = 99 ( , s)
+                                    $5 = 100 ( , s)
+                                    stack: 
+            4   $6  = lt $5  $0 
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 ( , s)
+                                    stack: 
+            5        bnz $6 ->8
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 (g, s)
+                                    stack: 
+            6        = jump ->14
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 (g, s)
+                                    stack: 
+            14        noop
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 (g, s)
+                                    stack: 
+            15  $3  = store 1
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $3 = 1 ( , s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 (g, s)
+                                    stack: 
+            16        noop
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $3 = 1 ( , s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 (g, s)
+                                    stack: 
+            17       = jump ->18
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $3 = 1 ( , s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 (g, s)
+                                    stack: 
+            18        noop
+                                    registers: 
+                                    $0 = 99 (g, s)
+                                    $3 = 1 ( , s)
+                                    $5 = 100 (g, s)
+                                    $6 = 0 (g, s)
+                                    stack: 

@@ -1,0 +1,13 @@
+to run a testProgram is to:
+	let G be a guitar.
+	let Z be 10 + 20.
+	let I be the length of G.
+	let Z be Z + I.
+
+to get the length of a guitar is to:
+	let I be 1.
+	let J be I * 10.
+	let K be I * (J - 20).
+	let L be K + J + 100.
+	let the length be L.
+

@@ -1,0 +1,14 @@
+a line has:
+	Nsegments (an int).
+	Colors (an array of int).
+	[
+	Segments (an array of arrays of float).
+	Startptr (an int) initialized to 0.
+	]
+
+
+[
+to construct a line is to:
+	let V3 be 10.
+	let Xxx be 300.
+	]

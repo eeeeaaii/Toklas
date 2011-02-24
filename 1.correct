@@ -1,0 +1,322 @@
+parsing...
+  1 :   0 : [TO_RUN_A] : [TO_RUN_A]
+  2 :   0 :       |ID| : testProgram
+  3 :   0 :    [IS_TO] :    [IS_TO]
+  4 :   0 :    <COLON> :    <COLON>
+  5 :   1 :      [LET] :      [LET]
+  6 :   1 :       |ID| :          I
+  7 :   1 :       [BE] :       [BE]
+  8 :   1 :   |DIGSEQ| :          0
+  9 :   1 :   <PERIOD> :   <PERIOD>
+ 10 :   2 :      [LET] :      [LET]
+ 11 :   2 :       |ID| :          J
+ 12 :   2 :       [BE] :       [BE]
+ 13 :   2 :   |DIGSEQ| :          0
+ 14 :   2 :   <PERIOD> :   <PERIOD>
+ 15 :   3 :      [LET] :      [LET]
+ 16 :   3 :       |ID| :          K
+ 17 :   3 :       [BE] :       [BE]
+ 18 :   3 :   |DIGSEQ| :         50
+ 19 :   3 :   <PERIOD> :   <PERIOD>
+ 20 :   4 :      [LET] :      [LET]
+ 21 :   4 :       |ID| :          K
+ 22 :   4 :       [BE] :       [BE]
+ 23 :   4 :       |ID| :          I
+ 24 :   4 :   |MATHOP| :          +
+ 25 :   4 :   |DIGSEQ| :        100
+ 26 :   4 :   |MATHOP| :          -
+ 27 :   4 :       |ID| :          K
+ 28 :   4 :   |MATHOP| :          /
+ 29 :   4 :   |DIGSEQ| :          2
+ 30 :   4 :   <PERIOD> :   <PERIOD>
+ 31 :   5 :      [LET] :      [LET]
+ 32 :   5 :       |ID| :          I
+ 33 :   5 :       [BE] :       [BE]
+ 34 :   5 :   |DIGSEQ| :          1
+ 35 :   5 :   <PERIOD> :   <PERIOD>
+ 36 :   6 :      [LET] :      [LET]
+ 37 :   6 :       |ID| :          K
+ 38 :   6 :       [BE] :       [BE]
+ 39 :   6 :       |ID| :          I
+ 40 :   6 :   |MATHOP| :          +
+ 41 :   6 :   |DIGSEQ| :        100
+ 42 :   6 :   |MATHOP| :          -
+ 43 :   6 :       |ID| :          K
+ 44 :   6 :   |MATHOP| :          /
+ 45 :   6 :   |DIGSEQ| :          2
+ 46 :   6 :   <PERIOD> :   <PERIOD>
+ 47 :   7 :      [LET] :      [LET]
+ 48 :   7 :       |ID| :          B
+ 49 :   7 :       [BE] :       [BE]
+ 50 :   7 :       |ID| :          K
+ 51 :   7 :   |MATHOP| :          *
+ 52 :   7 :   |DIGSEQ| :        100
+ 53 :   7 :   <PERIOD> :   <PERIOD>
+ 54 :   8 :      [LET] :      [LET]
+ 55 :   8 :       |ID| :          C
+ 56 :   8 :       [BE] :       [BE]
+ 57 :   8 :       |ID| :          B
+ 58 :   8 :   |MATHOP| :          %
+ 59 :   8 :   |DIGSEQ| :          2
+ 60 :   8 :   <PERIOD> :   <PERIOD>
+output from parse:
+program
+| run function
+| | statementlist.
+| | | letstatement (to I)
+| | | | literal: 0
+| | | letstatement (to J)
+| | | | literal: 0
+| | | letstatement (to K)
+| | | | literal: 50
+| | | letstatement (to K)
+| | | | binaryExpression (-)
+| | | | | binaryExpression (+)
+| | | | | | varRef (I)
+| | | | | | literal: 100
+| | | | | binaryExpression (/)
+| | | | | | varRef (K)
+| | | | | | literal: 2
+| | | letstatement (to I)
+| | | | literal: 1
+| | | letstatement (to K)
+| | | | binaryExpression (-)
+| | | | | binaryExpression (+)
+| | | | | | varRef (I)
+| | | | | | literal: 100
+| | | | | binaryExpression (/)
+| | | | | | varRef (K)
+| | | | | | literal: 2
+| | | letstatement (to B)
+| | | | binaryExpression (*)
+| | | | | varRef (K)
+| | | | | literal: 100
+| | | letstatement (to C)
+| | | | binaryExpression (%)
+| | | | | varRef (B)
+| | | | | literal: 2
+checking semantics...
+generating code...
+generated program was:
+---- ##run ----
+0         start (##run)
+1   $0  = store 0
+2   $1  = store 0
+3   $2  = store 50
+4   $3  = store 100
+5   $4  = add $0  $3 
+6   $5  = store 2
+7   $6  = div $2  $5 
+8   $2  = sub $4  $6 
+9   $0  = store 1
+10  $9  = store 100
+11  $10 = add $0  $9 
+12  $11 = store 2
+13  $12 = div $2  $11
+14  $2  = sub $10 $12
+15  $14 = store 100
+16  $15 = mult $2  $14
+17  $16 = store 2
+18  $17 = mod $15 $16
+running program...
+                                    registers: 
+                                    stack: 
+            1   $0  = store 0
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    stack: 
+            2   $1  = store 0
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    $1 = 0 ( , s)
+                                    stack: 
+            3   $2  = store 50
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    $1 = 0 ( , s)
+                                    $2 = 50 ( , s)
+                                    stack: 
+            4   $3  = store 100
+                                    registers: 
+                                    $0 = 0 ( , s)
+                                    $1 = 0 ( , s)
+                                    $2 = 50 ( , s)
+                                    $3 = 100 ( , s)
+                                    stack: 
+            5   $4  = add $0  $3 
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 50 ( , s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 ( , s)
+                                    stack: 
+            6   $5  = store 2
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 50 ( , s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 ( , s)
+                                    $5 = 2 ( , s)
+                                    stack: 
+            7   $6  = div $2  $5 
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 50 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 ( , s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 ( , s)
+                                    stack: 
+            8   $2  = sub $4  $6 
+                                    registers: 
+                                    $0 = 0 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 75 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    stack: 
+            9   $0  = store 1
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 75 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    stack: 
+            10  $9  = store 100
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 75 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 ( , s)
+                                    stack: 
+            11  $10 = add $0  $9 
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 75 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 ( , s)
+                                    stack: 
+            12  $11 = store 2
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 75 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 ( , s)
+                                    $11 = 2 ( , s)
+                                    stack: 
+            13  $12 = div $2  $11
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 75 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 ( , s)
+                                    $11 = 2 (g, s)
+                                    $12 = 37 ( , s)
+                                    stack: 
+            14  $2  = sub $10 $12
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 64 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 (g, s)
+                                    $11 = 2 (g, s)
+                                    $12 = 37 (g, s)
+                                    stack: 
+            15  $14 = store 100
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 64 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 (g, s)
+                                    $11 = 2 (g, s)
+                                    $12 = 37 (g, s)
+                                    $14 = 100 ( , s)
+                                    stack: 
+            16  $15 = mult $2  $14
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 64 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 (g, s)
+                                    $11 = 2 (g, s)
+                                    $12 = 37 (g, s)
+                                    $14 = 100 (g, s)
+                                    $15 = 6400 ( , s)
+                                    stack: 
+            17  $16 = store 2
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 64 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 (g, s)
+                                    $11 = 2 (g, s)
+                                    $12 = 37 (g, s)
+                                    $14 = 100 (g, s)
+                                    $15 = 6400 ( , s)
+                                    $16 = 2 ( , s)
+                                    stack: 
+            18  $17 = mod $15 $16
+                                    registers: 
+                                    $0 = 1 (g, s)
+                                    $1 = 0 ( , s)
+                                    $2 = 64 (g, s)
+                                    $3 = 100 (g, s)
+                                    $4 = 100 (g, s)
+                                    $5 = 2 (g, s)
+                                    $6 = 25 (g, s)
+                                    $9 = 100 (g, s)
+                                    $10 = 101 (g, s)
+                                    $11 = 2 (g, s)
+                                    $12 = 37 (g, s)
+                                    $14 = 100 (g, s)
+                                    $15 = 6400 (g, s)
+                                    $16 = 2 (g, s)
+                                    $17 = 0 ( , s)
+                                    stack: 
